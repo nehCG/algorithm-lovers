@@ -3,6 +3,8 @@ A web platform to share and discuss algorithms.
 
 [![](https://img.shields.io/badge/license-MIT-green)](https://github.com/nehCG/algorithm-lovers/blob/main/LICENSE)
 
+![](https://img.shields.io/github/issues/nehCG/algorithm-lovers)
+
 ## Overview
 Algorithm is a topic that everyone who studies computer science cannot avoid. 
 When I first learned algorithms, greedy, divide and conquer, and dynamic 
