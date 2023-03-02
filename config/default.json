@@ -1,3 +1,4 @@
 {
-    "mongoURI":"mongodb+srv://nehCG:nehCG@algorithmlovers.hkfklsn.mongodb.net/?retryWrites=true&w=majority"
+    "mongoURI":"mongodb+srv://nehCG:nehCG@algorithmlovers.hkfklsn.mongodb.net/?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken"
 }
