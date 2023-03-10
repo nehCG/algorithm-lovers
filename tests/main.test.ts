@@ -1,11 +1,31 @@
 const request = require('supertest');
-const app = require('../app');
+const app = require('../src/app');
 const mongoose = require('mongoose');
-const User = require('../models/User');
+const User = require('../src/models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const connectDB = require('../config/db')
+
+// Check if server is started on the expected port number or not
+
+describe('Server', () => {
+  let server;
+
+  beforeAll(() => {
+    server = app.listen(5000);
+  });
+
+  afterAll(done => {
+    server.close(done);
+  });
+
+  it('should start the server on the given port number', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toBe('API Running');
+  });
+});
 
 // Nine unit tests, all passed
 
@@ -111,10 +131,10 @@ describe('Auth API', () => {
 // One integration test, passed
 
 describe('POST /', () => {
-  let user;
 
   beforeAll(async () => {
     await connectDB();
+    let user;
     user = await User.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
