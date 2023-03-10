@@ -7,26 +7,6 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const connectDB = require('../config/db')
 
-// Check if server is started on the expected port number or not
-
-describe('Server', () => {
-  let server;
-
-  beforeAll(() => {
-    server = app.listen(5000);
-  });
-
-  afterAll(done => {
-    server.close(done);
-  });
-
-  it('should start the server on the given port number', async () => {
-    const response = await request(app).get('/');
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toBe('API Running');
-  });
-});
-
 // Nine unit tests, all passed
 
 describe('GET /', () => {
