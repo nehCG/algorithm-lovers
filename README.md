@@ -1,9 +1,10 @@
 # Algorithm-lovers
 A web platform to share and discuss algorithms.
 
-[![](https://img.shields.io/badge/license-MIT-green)](https://github.com/nehCG/algorithm-lovers/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/nehCG/algorithm-lovers/blob/main/LICENSE)
 
-![](https://img.shields.io/github/issues/nehCG/algorithm-lovers)
+[![Build Status](https://github.com/nehCG/algorithm-lovers/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/nehCG/algorithm-lovers/actions?query=workflow%3A%22Build+Status%22)
+[![codecov](https://codecov.io/gh/nehCG/algorithm-lovers/branch/main/graph/badge.svg)](https://codecov.io/gh/nehCG/algorithm-lovers)
 
 ## Overview
 Algorithm is a topic that everyone who studies computer science cannot avoid. 
