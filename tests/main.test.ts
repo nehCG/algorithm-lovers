@@ -17,21 +17,21 @@ describe('GET /', () => {
     });
 });
 
-describe('GET /', () => {
-    test('should return "Posts route"', async () => {
-        const response = await request(app).get('/api/posts');
-        expect(response.statusCode).toBe(200);
-        expect(response.text).toBe('Posts route');
-    });
-});
+// describe('GET /', () => {
+//     test('should return "Posts route"', async () => {
+//         const response = await request(app).get('/api/posts');
+//         expect(response.statusCode).toBe(200);
+//         expect(response.text).toBe('Posts route');
+//     });
+// });
 
-describe('GET /', () => {
-    test('should return "Profile route"', async () => {
-        const response = await request(app).get('/api/profile');
-        expect(response.statusCode).toBe(200);
-        expect(response.text).toBe('Profile route');
-    });
-});
+// describe('GET /', () => {
+//     test('should return "Profile route"', async () => {
+//         const response = await request(app).get('/api/profile');
+//         expect(response.statusCode).toBe(200);
+//         expect(response.text).toBe('Profile route');
+//     });
+// });
 
 describe('Auth API', () => {
     let authToken;

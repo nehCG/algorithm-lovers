@@ -19,3 +19,45 @@ I plan to build a web platform that
 
 1. Shares the algorithms I created to more people who love algorithms.
 2. Creates a community where you can discuss algorithms and share opinions.
+
+# Instruction to run the program
+
+## Install Node.js
+
+[Node.js](https://nodejs.org/en)
+
+### Add a default.json file in config folder with the following
+
+```json
+{
+  "mongoURI": "<your_mongoDB_Atlas_uri_with_credentials>",
+  "jwtSecret": "secret",
+  "githubToken": "<yoursecrectaccesstoken>"
+}
+```
+
+### Install server dependencies
+
+```bash
+npm install
+```
+
+### Install client dependencies
+
+```bash
+cd client
+npm install
+```
+
+### Run both Express & React from root
+
+```bash
+npm run dev
+```
+
+### Build for production
+
+```bash
+cd src
+npm run server
+```
