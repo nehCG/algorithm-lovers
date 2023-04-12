@@ -1,3 +1,16 @@
+/**
+ * Posts API routes module.
+ * @module routes/api/posts
+ * @requires express
+ * @requires express.Router
+ * @requires express-validator
+ * @requires middleware/auth
+ * @requires models/Post
+ * @requires models/Profile
+ * @requires models/User
+ */
+
+
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
@@ -8,9 +21,23 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 
-// @route   POST api/posts
-// @desc    Create a post
-// @access  Private
+/**
+ * @typedef {Object} PostObject
+ * @property {string} text - The content of the post.
+ * @property {string} name - The name of the user who created the post.
+ * @property {string} avatar - The avatar URL of the user who created the post.
+ * @property {string} user - The user ID of the user who created the post.
+ */
+
+
+/**
+ * @route   POST api/posts
+ * @desc    Create a post
+ * @access  Private
+ * @param {Array} validationRules - Array of Express Validator rules.
+ * @param {function} asyncHandler - Express async handler function.
+ * @returns {Object} Created post object.
+ */
 router.post(
   '/',
   [
@@ -47,9 +74,14 @@ router.post(
   });
 
 
-// @route   GET api/posts
-// @desc    Get all posts
-// @access  Private
+/**
+ * @route   GET api/posts
+ * @desc    Get all posts
+ * @access  Private
+ * @param {function} auth - Authentication middleware function.
+ * @param {function} asyncHandler - Express async handler function.
+ * @returns {Array} Array of post objects.
+ */
 router.get('/', auth, async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
@@ -61,9 +93,15 @@ router.get('/', auth, async (req, res) => {
 });
 
 
-// @route   GET api/posts/:id
-// @desc    Get post by ID
-// @access  Private
+/**
+ * @route GET api/posts/:id
+ * @desc Get post by ID
+ * @access Private
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @returns {object} - Returns the post as a JSON object if found, otherwise returns an error message.
+ * @throws {Error} - If an error occurs during execution, an error message is sent as a response.
+ */
 router.get('/:id', auth, async (req, res) => {
   try {
     const posts = await Post.findById(req.params.id);
@@ -83,9 +121,15 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 
-// @route   DELETE api/posts/:id
-// @desc    Delete a post
-// @access  Private
+/**
+ * @route DELETE api/posts/:id
+ * @desc Delete a post
+ * @access Private
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @returns {object} - Returns a success message if the post is deleted, otherwise returns an error message.
+ * @throws {Error} - If an error occurs during execution, an error message is sent as a response.
+ */
 router.delete('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -111,9 +155,15 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 
-// @route   PUT api/posts/like/:id
-// @desc    Like a post
-// @access  Private
+/**
+ * @route PUT api/posts/like/:id
+ * @description Like a post
+ * @access Private
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @returns {Array} - Returns an array of updated post likes.
+ * @throws {Error} - If an error occurs during execution, an error message is sent as a response.
+ */
 router.put('/like/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -135,9 +185,15 @@ router.put('/like/:id', auth, async (req, res) => {
 });
 
 
-// @route   PUT api/posts/unlike/:id
-// @desc    Like a post
-// @access  Private
+/**
+ * @route PUT api/posts/unlike/:id
+ * @description Unlike a post
+ * @access Private
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @returns {Array} - Returns an array of updated post likes.
+ * @throws {Error} - If an error occurs during execution, an error message is sent as a response.
+ */
 router.put('/unlike/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -162,9 +218,17 @@ router.put('/unlike/:id', auth, async (req, res) => {
 });
 
 
-// @route   POST api/posts/comment/:id
-// @desc    Comment on a post
-// @access  Private
+/**
+ * @route POST api/posts/comment/:id
+ * @description Comment on a post
+ * @access Private
+ * @param {object} req - The request object.
+ * @param {Array} req.body - An array of validation middleware.
+ * @param {Function} req.body.check - Middleware to check if the text field is not empty.
+ * @param {object} res - The response object.
+ * @returns {Array} - Returns an array of updated post comments.
+ * @throws {Error} - If an error occurs during execution, an error message is sent as a response.
+ */
 router.post(
   '/comment/:id',
   [
@@ -205,4 +269,8 @@ router.post(
   });
 
 
+/**
+ * Posts API router.
+ * @type {express.Router}
+ */
 module.exports = router;
