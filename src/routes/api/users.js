@@ -1,3 +1,15 @@
+/**
+ * @module api/users
+ * @requires express
+ * @requires gravatar
+ * @requires bcrypt
+ * @requires jwt
+ * @requires config
+ * @requires express-validator
+ * @requires models/User
+ */
+
+
 const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
@@ -8,9 +20,20 @@ const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
 
-// @route   POST api/users
-// @desc    Register user
-// @access  Public
+
+/**
+ * @route   POST api/users
+ * @desc    Register user
+ * @access  Public
+ * @param {Object} req - Express request object
+ * @param {Object} req.body - Request body containing the user's registration information
+ * @param {string} req.body.name - User's name
+ * @param {string} req.body.email - User's email address
+ * @param {string} req.body.password - User's password
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the user's JWT or an error message
+ * @throws {Error} - If there's a server error
+ */
 router.post(
   '/',
   [

@@ -1,3 +1,13 @@
+/**
+ * @module api/profile
+ * @requires express
+ * @requires middleware/auth
+ * @requires express-validator
+ * @requires models/Profile
+ * @requires models/User
+ */
+
+
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth')
@@ -5,9 +15,16 @@ const { check, validationResult } = require('express-validator')
 const Profile = require('../../models/Profile')
 const User = require('../../models/User')
 
-// @route   GET api/profile/me
-// @desc    Get current users profile
-// @access  Private
+
+/**
+ * @route   GET api/profile/me
+ * @desc    Get current user's profile
+ * @access  Private
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the user's profile or an error message
+ * @throws {Error} - If there's a server error
+ */
 router.get('/me', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
@@ -26,9 +43,16 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-// @route   POST api/profile/me
-// @desc    Create or update a user profile
-// @access  Private
+
+/**
+ * @route   POST api/profile
+ * @desc    Create or update a user profile
+ * @access  Private
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the created or updated profile or an error message
+ * @throws {Error} - If there's a server error
+ */
 router.post(
   '/',
   auth,
@@ -102,9 +126,16 @@ router.post(
   }
 );
 
-// @route   POST api/profile/user/:user_id
-// @desc    Get profile by user id
-// @access  Public
+
+/**
+ * @route   GET api/profile/user/:user_id
+ * @desc    Get profile by user ID
+ * @access  Public
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the user's profile or an error message
+ * @throws {Error} - If there's a server error or invalid user ID
+ */
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
@@ -120,9 +151,16 @@ router.get('/user/:user_id', async (req, res) => {
   }
 })
 
-// @route   DELETE api/profile
-// @desc    Delete profile, user & posts
-// @access  Private
+
+/**
+ * @route   DELETE api/profile
+ * @desc    Delete profile, user & posts
+ * @access  Private
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response with a success message
+ * @throws {Error} - If there's a server error
+ */
 router.delete('/', auth, async (req, res) => {
   try {
     // @todo - remove users posts
@@ -139,9 +177,16 @@ router.delete('/', auth, async (req, res) => {
   }
 })
 
-// @route   PUT api/profile/experience
-// @desc    Add profile experience
-// @access  Private
+
+/**
+ * @route   PUT api/profile/experience
+ * @desc    Add profile experience
+ * @access  Private
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the updated profile or an error message
+ * @throws {Error} - If there's a server error
+ */
 router.put('/experience', [auth, [
   check('title', 'Title is required').not().isEmpty(),
   check('company', 'Company is required').not().isEmpty(),
@@ -187,9 +232,16 @@ router.put('/experience', [auth, [
     }
   });
 
-// @route   PUT api/profile/experience/:exp_id
-// @desc    Delete experience from profile
-// @access  Private
+
+/**
+ * @route   DELETE api/profile/experience/:exp_id
+ * @desc    Delete experience from profile
+ * @access  Private
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the updated profile or an error message
+ * @throws {Error} - If there's a server error
+ */
 router.delete('/experience/:exp_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
@@ -208,9 +260,16 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
   }
 })
 
-// @route   PUT api/profile/education
-// @desc    Add profile education
-// @access  Private
+
+/**
+ * @route   PUT api/profile/education
+ * @desc    Add profile education
+ * @access  Private
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the updated profile or an error message
+ * @throws {Error} - If there's a server error
+ */
 router.put('/education', [auth, [
   check('school', 'school is required').not().isEmpty(),
   check('degree', 'degree is required').not().isEmpty(),
@@ -257,9 +316,16 @@ router.put('/education', [auth, [
     }
   });
 
-// @route   DELETE api/profile/education/:edu_id
-// @desc    Delete education from profile
-// @access  Private
+
+/**
+ * @route   DELETE api/profile/education/:edu_id
+ * @desc    Delete education from profile
+ * @access  Private
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - JSON response containing the updated profile or an error message
+ * @throws {Error} - If there's a server error
+ */
 router.delete('/education/:edu_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
@@ -278,4 +344,9 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
   }
 })
 
+
+/**
+ * Profile API router.
+ * @type {express.Router}
+ */
 module.exports = router;

@@ -1,3 +1,18 @@
+/**
+ * Auth API routes module.
+ * @module routes/api/auth
+ * @requires express
+ * @requires express.Router
+ * @requires middleware/auth
+ * @requires models/User
+ * @requires jsonwebtoken
+ * @requires express-validator
+ * @requires bcryptjs
+ * @requires gravatar
+ * @requires config
+ */
+
+
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
@@ -9,9 +24,14 @@ const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const config = require('config');
 
-// @route   GET api/auth
-// @desc    Test route
-// @access  Public
+/**
+ * @route   GET api/auth
+ * @desc    Get authenticated user
+ * @access  Protected
+ * @param {function} auth - Authentication middleware function.
+ * @param {function} asyncHandler - Express async handler function.
+ * @returns {Object} User object without password.
+ */
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -22,9 +42,15 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// @route   POST api/auth
-// @desc    Authenticate user & get token
-// @access  Public
+
+/**
+ * @route   POST api/auth
+ * @desc    Authenticate user & get token
+ * @access  Public
+ * @param {Array} validationRules - Array of Express Validator rules.
+ * @param {function} asyncHandler - Express async handler function.
+ * @returns {Object} JWT token.
+ */
 router.post(
   '/',
   [
@@ -82,4 +108,9 @@ router.post(
   }
 );
 
+
+/**
+ * Auth API router.
+ * @type {express.Router}
+ */
 module.exports = router;
