@@ -9,20 +9,19 @@
 
 
 const express = require('express');
-const axios = require('axios');
-const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
+const axios = require('axios');
+const config = require('config');
 
-
-// bring in normalize to give us a proper url, regardless of what user entered
 const normalize = require('normalize-url');
 const checkObjectId = require('../../middleware/checkObjectId');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Post = require('../../models/Post');
+
 
 /**
  * @route   GET api/profile/me
@@ -82,7 +81,7 @@ router.post(
       ...rest
     } = req.body;
 
-    // build a profile
+    // Build profile object
     const profileFields = {
       user: req.user.id,
       website:
@@ -95,7 +94,7 @@ router.post(
       ...rest
     };
 
-    // Build socialFields object
+    // Build social fields object
     const socialFields = { youtube, twitter, instagram, linkedin, facebook };
 
     // normalize social fields to ensure valid url
@@ -122,6 +121,19 @@ router.post(
 );
 
 
+/**
+ * GET endpoint to fetch all profiles.
+ *
+ * @route GET /
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Array<Object>} Returns an array of profiles with the associated user's name and avatar, or an error message with the appropriate status code.
+ * @throws {Error} Will return a 500 status if there is a server error.
+ *
+ * @example
+ * // Route definition
+ * router.get('/', async (req, res) => { ... });
+ */
 router.get('/', async (req, res) => {
   try {
     const profiles = await Profile.find().populate('user', ['name', 'avatar']);
@@ -264,8 +276,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
  * @returns {Object} - JSON response containing the updated profile or an error message
  * @throws {Error} - If there's a server error
  */
-router.put(
-  '/education',
+router.put('/education',
   auth,
   check('school', 'School is required').notEmpty(),
   check('degree', 'Degree is required').notEmpty(),
@@ -311,16 +322,29 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
       (edu) => edu._id.toString() !== req.params.edu_id
     );
     await foundProfile.save();
+
     return res.status(200).json(foundProfile);
+
   } catch (error) {
     console.error(error);
     return res.status(500).json({ msg: 'Server error' });
   }
 });
 
-// @route    GET api/profile/github/:username
-// @desc     Get user repos from Github
-// @access   Public
+
+/**
+ * GET endpoint to fetch a user's GitHub repositories by their username.
+ *
+ * @route GET /github/:username
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Array<Object>} Returns an array of the user's GitHub repositories (max 5, sorted by creation date), or an error message with the appropriate status code.
+ * @throws {Error} Will return a 404 status if no GitHub profile is found.
+ *
+ * @example
+ * // Route definition
+ * router.get('/github/:username', async (req, res) => { ... });
+ */
 router.get('/github/:username', async (req, res) => {
   try {
     const uri = encodeURI(

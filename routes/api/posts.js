@@ -20,6 +20,7 @@ const Post = require('../../models/Post');
 const User = require('../../models/User');
 const checkObjectId = require('../../middleware/checkObjectId');
 
+
 /**
  * @typedef {Object} PostObject
  * @property {string} text - The content of the post.
@@ -39,8 +40,14 @@ const checkObjectId = require('../../middleware/checkObjectId');
  */
 router.post(
   '/',
-  auth,
-  check('text', 'Text is required').notEmpty(),
+  [
+    auth,
+    [
+      check('text', 'Text is required')
+        .not().
+        isEmpty()
+    ]
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -64,8 +71,8 @@ router.post(
       console.error(err.message);
       res.status(500).send('Server Error');
     }
-  }
-);
+  });
+
 
 /**
  * @route   GET api/posts
@@ -135,7 +142,6 @@ router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
     }
 
     await post.remove();
-
     res.json({ msg: 'Post removed' });
   } catch (err) {
     console.error(err.message);
@@ -221,9 +227,15 @@ router.put('/unlike/:id', auth, checkObjectId('id'), async (req, res) => {
  */
 router.post(
   '/comment/:id',
-  auth,
-  checkObjectId('id'),
-  check('text', 'Text is required').notEmpty(),
+  [
+    auth,
+    checkObjectId('id'),
+    [
+      check('text', 'Text is required')
+        .not()
+        .isEmpty()
+    ]
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -253,9 +265,21 @@ router.post(
   }
 );
 
-// @route    DELETE api/posts/comment/:id/:comment_id
-// @desc     Delete comment
-// @access   Private
+
+/**
+ * DELETE endpoint to delete a comment from a post.
+ *
+ * @route DELETE /comment/:id/:comment_id
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} auth - Authentication middleware function.
+ * @returns {Object} Returns the updated comments array after deleting the specified comment, or an error message with the appropriate status code.
+ * @throws {Error} Will return a 404 status if the comment does not exist, a 401 status if the user is not authorized, or a 500 status if there is a server error.
+ *
+ * @example
+ * // Route definition (assuming the 'auth' middleware is already defined)
+ * router.delete('/comment/:id/:comment_id', auth, async (req, res) => { ... });
+ */
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);

@@ -13,8 +13,7 @@
     "build:release": "npm run clean && tsc -p tsconfig.release.json",
     "test": "jest --collectCoverage --detectOpenHandles",
     "test:watch": "jest --watch",
-    "lint": "npx eslint",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "lint": "npx eslint"
   },
   "author": "Chen Guan",
   "license": "MIT",
