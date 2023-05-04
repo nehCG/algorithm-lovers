@@ -54,10 +54,3 @@ npm install
 ```bash
 npm run dev
 ```
-
-### Build for production
-
-```bash
-cd src
-npm run server
-```
