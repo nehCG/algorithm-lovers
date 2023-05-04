@@ -1,22 +1,29 @@
-import React from 'react'
+import React from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">Algorithm Lovers</h1>
+          <h1 className="x-large">Developer Connector</h1>
           <p className="lead">
-            Create a profile/portfolio, share and discuss algotihms with
-            other algorithm enthusiasts
+            Create a developer profile/portfolio, share posts and get help from
+            other developers
           </p>
           <div className="buttons">
-            <a href="/register" className="btn btn-primary">
+            <Link to="/register" className="btn btn-primary">
               Sign Up
-            </a>
-            <a href to="/login" className="btn btn-light">
+            </Link>
+            <Link to="/login" className="btn btn-light">
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -24,4 +31,12 @@ const Landing = () => {
   );
 };
 
-export default Landing
+Landing.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Landing);

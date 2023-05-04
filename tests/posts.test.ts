@@ -1,14 +1,14 @@
 import request from 'supertest';
 const request = require('supertest');
-const app = require('../src/app');
+const app = require('../app');
 const mongoose = require('mongoose');
-const User = require('../src/models/User');
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const connectDB = require('../config/db')
-const auth = require('../src/middleware/auth')
-const Post = require('../src/models/Post')
+const auth = require('../middleware/auth')
+const Post = require('../models/Post')
 
-jest.mock('../src/middleware/auth')
+jest.mock('../middleware/auth')
 
 //
 // Test POST /api/posts
@@ -186,8 +186,8 @@ describe('GET api/posts/:id', () => {
 
     const response = await request(app).get(`/api/posts/${invalidId}`);
 
-    expect(response.status).toBe(404);
-    expect(response.body.msg).toBe('Post not found');
+    expect(response.status).toBe(400);
+    expect(response.body.msg).toBe('Invalid ID');
   });
 });
 
