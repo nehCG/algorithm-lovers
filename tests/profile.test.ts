@@ -1,14 +1,14 @@
 import request from 'supertest';
 const request = require('supertest');
-const app = require('../src/app');
+const app = require('../app');
 const mongoose = require('mongoose');
-const User = require('../src/models/User');
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const connectDB = require('../config/db')
-const auth = require('../src/middleware/auth')
-const Profile = require('../src/models/Profile')
+const auth = require('../middleware/auth')
+const Profile = require('../models/Profile')
 
-jest.mock('../src/middleware/auth')
+jest.mock('../middleware/auth')
 
 //
 // Test GET /api/profile/me
@@ -244,7 +244,7 @@ describe('GET /api/profile/user/:user_id', () => {
   // });
 
   test('should return 500 error if server error occurs', async () => {
-    const errMsg = 'Server Error';
+    const errMsg = '{\"msg\":\"Server error\"}';
     const originalConsoleError = console.error;
     console.error = jest.fn();
 

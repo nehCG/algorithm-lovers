@@ -1,8 +1,11 @@
 import request from 'supertest';
 const request = require('supertest');
-const app = require('../src/app');
-const server = require('../src/server')
+const app = require('../app');
+const server = require('../server')
 const mongoose = require('mongoose');
+
+// Mock console.log to suppress output during testing
+console.log = jest.fn();
 
 // unit test for auth.js
 describe('Auth API', () => {

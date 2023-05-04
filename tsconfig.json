@@ -23,7 +23,9 @@
     "strictNullChecks": false
   },
   "include": [
-    "src/**/*",
+    "middleware/**/*",
+    "models/**/*",
+    "routes/**/*",
     "tests/**/*"
   ]
 }
