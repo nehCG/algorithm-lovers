@@ -5,6 +5,8 @@
     "removeComments": true
   },
   "include": [
-    "src/**/*"
+    "middleware/**/*",
+    "models/**/*",
+    "routes/**/*"
   ]
 }
