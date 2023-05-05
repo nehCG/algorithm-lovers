@@ -52,7 +52,7 @@ npm install
 ### Run the web platform locally from root
 
 ```bash
-npm run dev
+npm run web
 ```
 
 # Instructions on how to use the application
