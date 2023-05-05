@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>middleware/auth.js - Documentation</title>
+    <title>routes/api/users - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,70 +29,138 @@
 
 <div id="main">
     
-    <h1 class="page-title">middleware/auth.js</h1>
+    <h1 class="page-title">routes/api/users</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Middleware to authenticate and verify JSON Web Token (JWT).
- * @module middleware/auth
- * @requires jsonwebtoken
- * @requires config
- * @example
- * // Route that requires authentication
- * app.get('/protected', auth, (req, res) => {
- *   res.send('Protected content');
- * });
- */
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Users API routes module.</div>
+        
+
+        
 
 
-const jwt = require('jsonwebtoken');
-const config = require('config');
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_api_users.js.html">routes/api/users.js</a>, <a href="routes_api_users.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-/**
- * Middleware function to authenticate and verify the JWT passed in the request header.
- *
- * @function
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @param {Function} next - Express middleware function to proceed to the next middleware or route handler.
- * @throws {Error} Will throw an error if the token is not valid.
- * @returns {Object|Function} If the token is not provided, returns a 401 status and JSON object with an error message. If the token is valid, calls the next middleware or route handler.
- *
- */
-module.exports = function (req, res, next) {
-  // Get token from header
-  const token = req.header('x-auth-token');
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint"><code>// POST api/users
+// Usage:
+// 1. Add the following route in your express app
+app.post('/api/users', async (req, res) => { ... });
 
-  // Check if not token
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
+// 2. Send a POST request with user's registration information
+// e.g., using axios:
+const axios = require('axios');
+const userData = {
+  name: 'John Doe',
+  email: 'johndoe@example.com',
+  password: 'mypassword',
+};
 
-  // Verify token
-  try {
-    jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
-      if (error) {
-        return res.status(401).json({ msg: 'Token is not valid' });
-      } else {
-        req.user = decoded.user;
-        next();
-      }
-    });
-  } catch (err) {
-    console.error('something wrong with auth middleware');
-    res.status(500).json({ msg: 'Server Error' });
-  }
-};</code></pre>
-        </article>
-    </section>
+axios.post('http://localhost:5000/api/users', userData)
+  .then(response => {
+    console.log(response.data); // User's JWT
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });</code></pre>
+
+        
+    
+    </div>
+
+    
+
+    
+        <h3 class="subsection-title">Requires</h3>
+
+        <ul>
+            <li>module:express</li>
+        
+            <li>module:gravatar</li>
+        
+            <li>module:bcrypt</li>
+        
+            <li>module:jwt</li>
+        
+            <li>module:config</li>
+        
+            <li>module:express-validator</li>
+        
+            <li><a href="module-models_User.html">module:models/User</a></li>
+        </ul>
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

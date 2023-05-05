@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>middleware/auth.js - Documentation</title>
+    <title>middleware/checkObjectId - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,70 +29,106 @@
 
 <div id="main">
     
-    <h1 class="page-title">middleware/auth.js</h1>
+    <h1 class="page-title">middleware/checkObjectId</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Middleware to authenticate and verify JSON Web Token (JWT).
- * @module middleware/auth
- * @requires jsonwebtoken
- * @requires config
- * @example
- * // Route that requires authentication
- * app.get('/protected', auth, (req, res) => {
- *   res.send('Protected content');
- * });
- */
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Middleware function to check if the given object ID in the request parameter is valid.</div>
+        
+
+        
 
 
-const jwt = require('jsonwebtoken');
-const config = require('config');
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="middleware_checkObjectId.js.html">middleware/checkObjectId.js</a>, <a href="middleware_checkObjectId.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-/**
- * Middleware function to authenticate and verify the JWT passed in the request header.
- *
- * @function
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @param {Function} next - Express middleware function to proceed to the next middleware or route handler.
- * @throws {Error} Will throw an error if the token is not valid.
- * @returns {Object|Function} If the token is not provided, returns a 401 status and JSON object with an error message. If the token is valid, calls the next middleware or route handler.
- *
- */
-module.exports = function (req, res, next) {
-  // Get token from header
-  const token = req.header('x-auth-token');
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint"><code>// Import the middleware
+const checkObjectId = require('./checkObjectId');
 
-  // Check if not token
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
+// Route that requires a valid object ID
+app.get('/resource/:id', checkObjectId('id'), (req, res) => {
+  res.send('Resource with valid ID');
+});</code></pre>
 
-  // Verify token
-  try {
-    jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
-      if (error) {
-        return res.status(401).json({ msg: 'Token is not valid' });
-      } else {
-        req.user = decoded.user;
-        next();
-      }
-    });
-  } catch (err) {
-    console.error('something wrong with auth middleware');
-    res.status(500).json({ msg: 'Server Error' });
-  }
-};</code></pre>
-        </article>
-    </section>
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

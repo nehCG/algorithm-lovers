@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-api_profile.html">api/profile</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-api_users.html">api/users</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-auth.html">auth</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-models_Post.html">models/Post</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-models_Profile.html">models/Profile</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-models_User.html">models/User</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-routes_api_auth.html">routes/api/auth</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-routes_api_posts.html">routes/api/posts</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#mongoose">mongoose</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-middleware_auth.html">middleware/auth</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-middleware_checkObjectId.html">middleware/checkObjectId</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-models_Post.html">models/Post</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-models_Profile.html">models/Profile</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-models_User.html">models/User</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-routes_api_auth.html">routes/api/auth</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-routes_api_posts.html">routes/api/posts</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-routes_api_profile.html">routes/api/profile</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-routes_api_users.html">routes/api/users</a></span></li>
 </nav>
 
 <div id="main">
@@ -40,12 +40,207 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module api/profile
+ * Profile API routes module.
+ * @module routes/api/profile
  * @requires express
  * @requires middleware/auth
  * @requires express-validator
  * @requires models/Profile
  * @requires models/User
+ * 
+ * @example
+ * // GET api/profile/me
+ * // Usage:
+ * // 1. Include auth middleware in your express app
+ * const auth = require('../../middleware/auth');
+ *
+ * // 2. Add the following route in your express app
+ * app.get('/api/profile/me', auth, async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a GET request with the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.get('http://localhost:5000/api/profile/me', {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // User's profile
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // POST api/profile
+ * // Usage:
+ * // 1. Include auth middleware in your express app
+ * const auth = require('../../middleware/auth');
+ *
+ * // 2. Add the following route in your express app
+ * app.post('/api/profile', auth, async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a POST request with the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.post('http://localhost:5000/api/profile', {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   },
+ *   data: {
+ *     // Your profile data
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Created or updated profile
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // GET api/profile/user/:user_id
+ * // Usage:
+ * // 1. Add the following route in your express app
+ * app.get('/api/profile/user/:user_id', checkObjectId('user_id'), async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 2. Send a GET request
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.get('http://localhost:5000/api/profile/user/12345')
+ *   .then(response => {
+ *     console.log(response.data); // Profile object
+ *   })
+ *   .catch(error => {
+ *     console.error('Error:', error);
+ *   });
+ * 
+ * @example
+ * // DELETE api/profile
+ * // Usage:
+ * // 1. Add the following route in your express app
+ * app.delete('/api/profile', auth, async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 2. Send a DELETE request
+ * // e.g., using axios:
+ * const axios = require('axios');
+ * const token = 'your_auth_token'; // Replace with the user's auth token
+ *
+ * axios.delete('http://localhost:5000/api/profile', {
+ *   headers: { 'x-auth-token': token },
+ * })
+ *   .then(response => {
+ *     console.log(response.data); // { msg: 'User deleted' }
+ *   })
+ *   .catch(error => {
+ *     console.error('Error:', error);
+ *   });
+ * 
+ * @example
+ * // PUT api/profile/experience
+ * // Usage:
+ * // 1. Add the following route in your express app
+ * app.put('/api/profile/experience', auth, check('title', 'Title is required').notEmpty(), ...);
+ *
+ * // 2. Send a PUT request with experience data
+ * // e.g., using axios:
+ * const axios = require('axios');
+ * const token = 'your_auth_token'; // Replace with the user's auth token
+ * const experienceData = {
+ *   title: 'Software Engineer',
+ *   company: 'Awesome Company',
+ *   from: '2020-05-01'
+ * };
+ *
+ * axios.put('http://localhost:5000/api/profile/experience', experienceData, {
+ *   headers: { 'x-auth-token': token },
+ * })
+ *   .then(response => {
+ *     console.log(response.data); // Updated profile
+ *   })
+ *   .catch(error => {
+ *     console.error('Error:', error);
+ *   });
+ * 
+ * @example
+ * // DELETE api/profile/experience/:exp_id
+ * // Usage:
+ * // 1. Add the following route in your express app
+ * app.delete('/api/profile/experience/:exp_id', auth, async (req, res) => { ... });
+ *
+ * // 2. Send a DELETE request with the experience ID to delete
+ * // e.g., using axios:
+ * const axios = require('axios');
+ * const token = 'your_auth_token'; // Replace with the user's auth token
+ * const experienceId = 'your_experience_id'; // Replace with the experience ID to delete
+ *
+ * axios.delete(`http://localhost:5000/api/profile/experience/${experienceId}`, {
+ *   headers: { 'x-auth-token': token },
+ * })
+ *   .then(response => {
+ *     console.log(response.data); // Updated profile
+ *   })
+ *   .catch(error => {
+ *     console.error('Error:', error);
+ *   });
+ * 
+ * @example
+ * // PUT api/profile/education
+ * // Usage:
+ * // 1. Add the following route in your express app
+ * app.put('/api/profile/education', auth, check(...), async (req, res) => { ... });
+ *
+ * // 2. Send a PUT request with the education data to add
+ * // e.g., using axios:
+ * const axios = require('axios');
+ * const token = 'your_auth_token'; // Replace with the user's auth token
+ * const educationData = {
+ *   school: 'Example University',
+ *   degree: 'Bachelor of Science',
+ *   fieldofstudy: 'Computer Science',
+ *   from: '2016-08-01',
+ *   to: '2020-05-01',
+ * };
+ *
+ * axios.put('http://localhost:5000/api/profile/education', educationData, {
+ *   headers: { 'x-auth-token': token },
+ * })
+ *   .then(response => {
+ *     console.log(response.data); // Updated profile
+ *   })
+ *   .catch(error => {
+ *     console.error('Error:', error);
+ *   });
+ * 
+ * @example
+ * // DELETE api/profile/education/:edu_id
+ * // Usage:
+ * // 1. Add the following route in your express app
+ * app.delete('/api/profile/education/:edu_id', auth, async (req, res) => { ... });
+ *
+ * // 2. Send a DELETE request with the education ID to delete
+ * // e.g., using axios:
+ * const axios = require('axios');
+ * const token = 'your_auth_token'; // Replace with the user's auth token
+ * const educationId = '5d713995b721c3bb38c1f5d0'; // Replace with the education ID to delete
+ *
+ * axios.delete(`http://localhost:5000/api/profile/education/${educationId}`, {
+ *   headers: { 'x-auth-token': token },
+ * })
+ *   .then(response => {
+ *     console.log(response.data); // Updated profile
+ *   })
+ *   .catch(error => {
+ *     console.error('Error:', error);
+ *   });
  */
 
 
@@ -170,10 +365,6 @@ router.post(
  * @param {Object} res - Express response object.
  * @returns {Array&lt;Object>} Returns an array of profiles with the associated user's name and avatar, or an error message with the appropriate status code.
  * @throws {Error} Will return a 500 status if there is a server error.
- *
- * @example
- * // Route definition
- * router.get('/', async (req, res) => { ... });
  */
 router.get('/', async (req, res) => {
   try {
@@ -389,7 +580,7 @@ module.exports = router;</code></pre>
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Thu May 04 2023 20:17:51 GMT-0400 (Eastern Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Fri May 05 2023 02:41:58 GMT-0400 (Eastern Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

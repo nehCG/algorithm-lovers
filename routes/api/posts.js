@@ -8,6 +8,229 @@
  * @requires models/Post
  * @requires models/Profile
  * @requires models/User
+ * 
+ * @example
+ * // POST api/posts
+ * // Usage:
+ * // 1. Include validation and auth middleware in your express app
+ * const { check, validationResult } = require('express-validator');
+ * const auth = require('../../middleware/auth');
+ *
+ * // 2. Add the following route in your express app
+ * app.post('/api/posts', [
+ *   auth,
+ *   [check('text', 'Text is required').not().isEmpty()]
+ * ], async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with text in the request body and the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.post('http://localhost:5000/api/posts', {
+ *   text: 'This is a new post'
+ * }, {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Created post object
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // GET api/posts
+ * // Usage:
+ * // 1. Include auth middleware in your express app
+ * const auth = require('../../middleware/auth');
+ *
+ * // 2. Add the following route in your express app
+ * app.get('/api/posts', auth, async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.get('http://localhost:5000/api/posts', {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Array of post objects
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // GET api/posts/:id
+ * // Usage:
+ * // 1. Include auth and checkObjectId middleware in your express app
+ * const auth = require('../../middleware/auth');
+ * const checkObjectId = require('../../middleware/checkObjectId');
+ *
+ * // 2. Add the following route in your express app
+ * app.get('/api/posts/:id', auth, checkObjectId('id'), async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with the post ID in the URL and the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.get('http://localhost:5000/api/posts/your_post_id_here', {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Post object
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // DELETE api/posts/:id
+ * // Usage:
+ * // 1. Include auth and checkObjectId middleware in your express app
+ * const auth = require('../../middleware/auth');
+ * const checkObjectId = require('../../middleware/checkObjectId');
+ *
+ * // 2. Add the following route in your express app
+ * app.delete('/api/posts/:id', [auth, checkObjectId('id')], async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with the post ID in the URL and the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.delete('http://localhost:5000/api/posts/your_post_id_here', {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // { msg: 'Post removed' }
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ *
+ * @example
+ * // PUT api/posts/like/:id
+ * // Usage:
+ * // 1. Include auth and checkObjectId middleware in your express app
+ * const auth = require('../../middleware/auth');
+ * const checkObjectId = require('../../middleware/checkObjectId');
+ *
+ * // 2. Add the following route in your express app
+ * app.put('/api/posts/like/:id', auth, checkObjectId('id'), async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with the post ID in the URL and the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.put('http://localhost:5000/api/posts/like/your_post_id_here', {}, {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Array of updated post likes
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // PUT api/posts/unlike/:id
+ * // Usage:
+ * // 1. Include auth and checkObjectId middleware in your express app
+ * const auth = require('../../middleware/auth');
+ * const checkObjectId = require('../../middleware/checkObjectId');
+ *
+ * // 2. Add the following route in your express app
+ * app.put('/api/posts/unlike/:id', auth, checkObjectId('id'), async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with the post ID in the URL and the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.put('http://localhost:5000/api/posts/unlike/your_post_id_here', {}, {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Array of updated post likes
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ *
+ * @example
+ * // POST api/posts/comment/:id
+ * // Usage:
+ * // 1. Include auth and checkObjectId middleware in your express app
+ * const auth = require('../../middleware/auth');
+ * const checkObjectId = require('../../middleware/checkObjectId');
+ *
+ * // 2. Add the following route in your express app
+ * app.post('/api/posts/comment/:id', [
+ *   auth,
+ *   checkObjectId('id'),
+ *   [
+ *     check('text', 'Text is required')
+ *       .not()
+ *       .isEmpty()
+ *   ]
+ * ], async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with the post ID in the URL, the token in the 'x-auth-token' header,
+ * // and a JSON object containing the text field in the request body
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.post('http://localhost:5000/api/posts/comment/your_post_id_here', {
+ *   text: 'Your comment here'
+ * }, {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Array of updated post comments
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // DELETE /comment/:id/:comment_id
+ * // Usage:
+ * // 1. Include auth middleware in your express app
+ * const auth = require('../../middleware/auth');
+ *
+ * // 2. Add the following route in your express app
+ * app.delete('/api/posts/comment/:id/:comment_id', auth, async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with the post ID and comment ID in the URL, and the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.delete('http://localhost:5000/api/posts/comment/your_post_id_here/your_comment_id_here', {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data); // Array of updated post comments
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
  */
 
 
@@ -274,10 +497,6 @@ router.post(
  * @param {Function} auth - Authentication middleware function.
  * @returns {Object} Returns the updated comments array after deleting the specified comment, or an error message with the appropriate status code.
  * @throws {Error} Will return a 404 status if the comment does not exist, a 401 status if the user is not authorized, or a 500 status if there is a server error.
- *
- * @example
- * // Route definition (assuming the 'auth' middleware is already defined)
- * router.delete('/comment/:id/:comment_id', auth, async (req, res) => { ... });
  */
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
   try {

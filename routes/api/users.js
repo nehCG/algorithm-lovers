@@ -1,5 +1,6 @@
 /**
- * @module api/users
+ * Users API routes module.
+ * @module routes/api/users
  * @requires express
  * @requires gravatar
  * @requires bcrypt
@@ -7,6 +8,29 @@
  * @requires config
  * @requires express-validator
  * @requires models/User
+ * 
+ * @example
+ * // POST api/users
+ * // Usage:
+ * // 1. Add the following route in your express app
+ * app.post('/api/users', async (req, res) => { ... });
+ *
+ * // 2. Send a POST request with user's registration information
+ * // e.g., using axios:
+ * const axios = require('axios');
+ * const userData = {
+ *   name: 'John Doe',
+ *   email: 'johndoe@example.com',
+ *   password: 'mypassword',
+ * };
+ *
+ * axios.post('http://localhost:5000/api/users', userData)
+ *   .then(response => {
+ *     console.log(response.data); // User's JWT
+ *   })
+ *   .catch(error => {
+ *     console.error('Error:', error);
+ *   });
  */
 
 
@@ -104,4 +128,8 @@ router.post(
   }
 );
 
+/**
+ * Users API router.
+ * @type {express.Router}
+ */
 module.exports = router;
