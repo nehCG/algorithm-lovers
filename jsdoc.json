@@ -1,0 +1,14 @@
+{
+  "source": {
+    "include": ["middleware", "models", "routes"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+    "destination": "docs",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "./custom-template"
+  }
+}
