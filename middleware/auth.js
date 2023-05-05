@@ -1,8 +1,13 @@
 /**
  * Middleware to authenticate and verify JSON Web Token (JWT).
- * @module auth
+ * @module middleware/auth
  * @requires jsonwebtoken
  * @requires config
+ * @example
+ * // Route that requires authentication
+ * app.get('/protected', auth, (req, res) => {
+ *   res.send('Protected content');
+ * });
  */
 
 
@@ -20,11 +25,6 @@ const config = require('config');
  * @throws {Error} Will throw an error if the token is not valid.
  * @returns {Object|Function} If the token is not provided, returns a 401 status and JSON object with an error message. If the token is valid, calls the next middleware or route handler.
  *
- * @example
- * // Route that requires authentication
- * app.get('/protected', auth, (req, res) => {
- *   res.send('Protected content');
- * });
  */
 module.exports = function (req, res, next) {
   // Get token from header

@@ -8,8 +8,65 @@
  * @requires jsonwebtoken
  * @requires express-validator
  * @requires bcryptjs
- * @requires gravatar
  * @requires config
+ * 
+ * @example
+ * // GET api/auth
+ * // Usage:
+ * // 1. Include auth middleware in your express app
+ * const auth = require('../../middleware/auth');
+ *
+ * // 2. Add the following route in your express app
+ * app.get('/api/auth', auth, async (req, res) => {
+ *   try {
+ *     const user = await User.findById(req.user.id).select('-password');
+ *     res.json(user);
+ *   } catch (err) {
+ *     console.error(err.message);
+ *     res.status(500).send('Server Error');
+ *   }
+ * });
+ *
+ * // 3. Send a request with the token in the 'x-auth-token' header
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.get('http://localhost:5000/api/auth', {
+ *   headers: {
+ *     'x-auth-token': 'your_token_here'
+ *   }
+ * }).then(response => {
+ *   console.log(response.data);
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
+ * 
+ * @example
+ * // POST api/auth
+ * // Usage:
+ * // 1. Include validation middleware in your express app
+ * const { check, validationResult } = require('express-validator');
+ *
+ * // 2. Add the following route in your express app
+ * app.post('/api/auth', [
+ *   check('email', 'Please include a valid email').isEmail(),
+ *   check('password', 'Password is required').exists(),
+ * ], async (req, res) => {
+ *   // Your route handler logic
+ * });
+ *
+ * // 3. Send a request with email and password in the request body
+ * // e.g., using axios:
+ * const axios = require('axios');
+ *
+ * axios.post('http://localhost:5000/api/auth', {
+ *   email: 'user@example.com',
+ *   password: 'user_password',
+ * }).then(response => {
+ *   console.log(response.data); // JWT token
+ * }).catch(error => {
+ *   console.error('Error:', error);
+ * });
  */
 
 

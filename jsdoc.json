@@ -9,6 +9,6 @@
     "encoding": "utf8",
     "private": true,
     "recurse": true,
-    "template": "./custom-template"
+    "template": "./docs/docs-template"
   }
 }

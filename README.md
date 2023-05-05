@@ -6,6 +6,7 @@ A web platform to share and discuss algorithms.
 [![codecov](https://codecov.io/gh/nehCG/algorithm-lovers/branch/main/graph/badge.svg)](https://codecov.io/gh/nehCG/algorithm-lovers)
 [![npm](https://img.shields.io/npm/v/algorithm-lovers)](https://www.npmjs.com/package/algorithm-lovers)
 [![Github Pages](https://img.shields.io/badge/Github-Pages-blue)](https://nehcg.github.io/algorithm-lovers/)
+
 ## Overview
 Algorithm is a topic that everyone who studies computer science cannot avoid. 
 When I first learned algorithms, greedy, divide and conquer, and dynamic 
@@ -15,7 +16,7 @@ theory and practice makes my interest in algorithms soar. I am participating
 in competitive programming this semester. After being exposed to many novel 
 problems in the contest, I wrote some novel algorithms. 
 
-I plan to build a web platform that
+Therefore, I build a web platform that:
 
 1. Shares the algorithms I created to more people who love algorithms.
 2. Creates a community where you can discuss algorithms and share opinions.
@@ -32,7 +33,6 @@ I plan to build a web platform that
 {
   "mongoURI": "<your_mongoDB_Atlas_uri_with_credentials>",
   "jwtSecret": "secret",
-  "githubToken": "<yoursecrectaccesstoken>"
 }
 ```
 
@@ -49,8 +49,42 @@ cd client
 npm install
 ```
 
-### Run both Express & React from root
+### Run the web platform locally from root
 
 ```bash
 npm run dev
 ```
+
+# Instructions on how to use the application
+
+After you run the web platform locally, the web application will launch on your ```localhost:3000```. It is very similar to the usual social network, with features such as registration, login, browsing, posting, etc.
+
+##  Functionalites and APIs
+
+### CREATE
+- ```api/auth```
+- ```api/posts```
+- ```api/posts/comment/:id```
+- ```api/profile```
+- ```api/users```
+
+### READ
+- ```api/auth```
+- ```api/profile/me```
+- ```api/posts```
+- ```api/posts/:id```
+- ```api/profile```
+- ```api/profile/user/:user_id```
+
+### UPDATE
+- ```api/posts/like/:id```
+- ```api/posts/unlike/:id```
+- ```api/profile/experience```
+- ```api/profile/education```
+
+### DELETE
+- ```api/posts/:id```
+- ```/comment/:id/:comment_id```
+- ```api/profile```
+- ```api/profile/experience/:exp_id```
+- ```api/profile/education/:edu_id```

@@ -56,10 +56,54 @@
           npm install
         </code></pre>
 
-        <h3>Run both Express &amp; React from root</h3>
+        <h3>Run the web platform locally from root</h3>
         <pre><code>
           npm run dev
         </code></pre>
+
+        <h2>Instructions on how to use the application</h2>
+          <p>After you run the web platform locally, the web application will launch on your ```localhost:3000```. 
+          <br>It is very similar to the usual social network, with features such as registration, login, browsing, posting, etc.
+          </p>
+
+        <h3>Functionalites and APIs</h3>
+
+        <h4>CREATE</h4>
+        <pre><code>
+          api/auth
+          api/posts
+          api/posts/comment/:id
+          api/profile
+          api/users
+        </code></pre>
+
+        <h4>READ</h4>
+        <pre><code>
+          api/auth
+          api/profile/me
+          api/posts
+          api/posts/:id
+          api/profile
+          api/profile/user/:user_id
+        </code></pre>
+
+        <h4>UPDATE</h4>
+        <pre><code>
+          api/posts/like/:id
+          api/posts/unlike/:id
+          api/profile/experience
+          api/profile/education
+        </code></pre>
+
+        <h4>DELETE</h4>
+        <pre><code>
+          api/posts/:id
+          /comment/:id/:comment_id
+          api/profile
+          api/profile/experience/:exp_id
+          api/profile/education/:edu_id
+        </code></pre>
+
     <?js } ?>
 
     <?js= content ?>
