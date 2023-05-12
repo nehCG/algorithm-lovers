@@ -207,8 +207,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-const axios = require('axios');
-const config = require('config');
+//const axios = require('axios');
+//const config = require('config');
 
 const normalize = require('normalize-url');
 const checkObjectId = require('../../middleware/checkObjectId');
