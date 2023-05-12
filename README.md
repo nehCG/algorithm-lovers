@@ -3,6 +3,8 @@ A web platform to share and discuss algorithms.
 
 [![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/nehCG/algorithm-lovers/blob/main/LICENSE)
 [![Build Status](https://github.com/nehCG/algorithm-lovers/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/nehCG/algorithm-lovers/actions?query=workflow%3A%22Build+Status%22)
+![](https://img.shields.io/github/issues/nehCG/algorithm-lovers)
+
 [![codecov](https://codecov.io/gh/nehCG/algorithm-lovers/branch/main/graph/badge.svg)](https://codecov.io/gh/nehCG/algorithm-lovers)
 [![npm](https://img.shields.io/npm/v/algorithm-lovers)](https://www.npmjs.com/package/algorithm-lovers)
 [![Github Pages](https://img.shields.io/badge/Github-Pages-blue)](https://nehcg.github.io/algorithm-lovers/)

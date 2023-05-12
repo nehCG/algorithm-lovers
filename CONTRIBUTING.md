@@ -77,6 +77,9 @@ npm run lint
 ### Update Documentation
 
 If your changes require updates to the documentation or if you've added new features, make sure to update the relevant documentation accordingly.
+```bash
+npm run jsdoc
+```
 
 ### Check for Conflicts
 
