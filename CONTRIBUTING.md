@@ -76,7 +76,9 @@ npm run lint
 
 ### Update Documentation
 
-If your changes require updates to the documentation or if you've added new features, make sure to update the relevant documentation accordingly.
+If your changes require updates to the documentation or if you've added new features, make sure to update the relevant documentation accordingly. And please make sure you add autodoc-compatible documentation.
+
+Generate documentation website:
 ```bash
 npm run jsdoc
 ```
