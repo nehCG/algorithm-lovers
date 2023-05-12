@@ -1,6 +1,6 @@
 {
   "name": "algorithm-lovers",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Social network for algorithm lovers",
   "main": "server.js",
   "scripts": {
