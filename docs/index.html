@@ -30,6 +30,22 @@
 <div id="main">
     
         <!-- Custom content for the home page -->
+        <h1>Algorithm Lovers</h1>
+        <h2>Overview</h2>
+        <p>Studying computer science invariably involves delving into algorithms. When I initially encountered concepts 
+        <br>like greedy, divide and conquer, and dynamic programming, I found them challenging. However, I gradually 
+        <br>developed a fascination for them. This interest grew particularly when I began incorporating these algorithms 
+        <br>into my own projects, where the synergy between theory and practice fueled my enthusiasm.</p>
+
+        <p>Now, as a participant in competitive programming, I have developed novel algorithms in response to unique 
+        <br>problems encountered during contests. Consequently, I have decided to build a web platform with two main 
+        <br>objectives:</p>
+
+        <ol>
+            <li>To share the algorithms I've developed, aiming to reach others with a passion for algorithms.</li>
+            <li>To establish a community for discussions about algorithms, encouraging the sharing of insights and opinions.</li>
+        </ol>
+
         <h2>Instruction to run the program</h2>
         <h3>Install Node.js</h3>
         <p><a href="https://nodejs.org/en">Node.js</a></p>
@@ -38,8 +54,7 @@
         <pre><code>
           {
             "mongoURI": "&lt;your_mongoDB_Atlas_uri_with_credentials&gt;",
-            "jwtSecret": "secret",
-            "githubToken": "&lt;yoursecrectaccesstoken&gt;"
+            "jwtSecret": "secret"
           }
         </code></pre>
 
@@ -56,50 +71,85 @@
 
         <h3>Run the web platform locally from root</h3>
         <pre><code>
-          npm run web
+          npm run dev
         </code></pre>
 
-        <h2>Instructions on how to use the application</h2>
-          <p>After you run the web platform locally, the web application will launch on your ```localhost:3000```. 
+        <h2>Examples of how to use the application</h2>
+
+          <p>Examples of API usage can be found under Modules links, which include specific instructions for usage.</p>
+
+          <p>After you run the web platform locally, the web application will launch on your localhost:3000. 
           <br>It is very similar to the usual social network, with features such as registration, login, browsing, posting, etc.
           </p>
+
+          <p><strong>Home Page:</strong> Application home page that allows users to register, log in, or browse published content 
+          <br>by clicking the relevant button in the upper right corner.
+          </p>
+          <img src="../img/homepage.png" style="width:666px;height:auto;">
+
+          <p><strong>Sign Up Page:</strong> The user registration page, where users can create a new account.
+          </p>
+          <img src="../img/signup.png" style="width:666px;height:auto;">
+
+          <p><strong>Create Profile Page:</strong> The profile creation page, where users can input and update their personal 
+          <br>information, education, and work experience.
+          </p>
+          <img src="../img/create_profile.png" style="width:666px;height:auto;">
+
+          <p><strong>Sign In Page:</strong> The login page, where users can enter their credentials to access their account.
+          </p>
+          <img src="../img/signin.png" style="width:666px;height:auto;">
+
+          <p><strong>Dashboard Page:</strong> The main dashboard, where users can view an overview of their profile, posts, 
+          <br>and other relevant information.
+          </p>
+          <img src="../img/dashboard.png" style="width:666px;height:auto;">
+
+          <p><strong>Post Page:</strong> A single post page, users can create a post here.
+          </p>
+          <img src="../img/post.png" style="width:666px;height:auto;">
+
+          <p><strong>Published content Page:</strong> A page showing a list of all posts in the application, allowing 
+          <br>users to browse and interact with them.
+          </p>
+          <img src="../img/content.png" style="width:666px;height:auto;">
 
         <h3>Functionalites and APIs</h3>
 
         <h4>CREATE</h4>
         <pre><code>
-          api/auth
-          api/posts
-          api/posts/comment/:id
-          api/profile
-          api/users
+          api/auth: Register a new user or authenticate an existing user.
+          api/posts: Create a new post.
+          api/posts/comment/:id: Add a comment to a post.
+          api/profile: Create a user profile.
+          api/users: Register a new user. 
         </code></pre>
 
         <h4>READ</h4>
         <pre><code>
-          api/auth
-          api/profile/me
-          api/posts
-          api/posts/:id
-          api/profile
-          api/profile/user/:user_id
+          api/auth: Authenticate a user and return their information.
+          api/profile/me: Retrieve the current user's profile.
+          api/posts: Retrieve a single post by its ID.
+          api/posts/:id: Retrieve a single post by its ID.
+          api/profile: Retrieve all user profiles.
+          api/profile/user/:user_id: Retrieve a specific user profile by its user ID.
         </code></pre>
 
         <h4>UPDATE</h4>
         <pre><code>
-          api/posts/like/:id
-          api/posts/unlike/:id
-          api/profile/experience
-          api/profile/education
+          api/posts/like/:id: Like a post.
+          api/posts/unlike/:id: Unlike a post.
+          api/profile/experience: Add or update work experience in a user's profile.
+          api/profile/education: Add or update education in a user's profile.
         </code></pre>
 
         <h4>DELETE</h4>
         <pre><code>
-          api/posts/:id
-          /comment/:id/:comment_id
-          api/profile
-          api/profile/experience/:exp_id
-          api/profile/education/:edu_id
+          api/posts/:id: Delete a post by its ID.
+          /comment/:id/:comment_id: Delete a comment from a post.
+          api/profile: Delete the current user's profile.
+          api/profile/experience/:exp_id: Delete a specific work experience from a user's profile.
+          api/profile/education/:edu_id: Delete a specific education entry from a user's profile.
         </code></pre>
 
     
@@ -131,7 +181,7 @@
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Fri May 05 2023 03:02:08 GMT-0400 (Eastern Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Thu May 11 2023 21:38:26 GMT-0400 (Eastern Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
