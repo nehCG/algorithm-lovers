@@ -116,4 +116,4 @@ After you run the web platform locally, the web application will launch on your 
 
 # Contribute
 
-Please see [CONTRIBUTING](./CONTRIBUTING)
+Please see [CONTRIBUTING](./CONTRIBUTING.md)
