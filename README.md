@@ -43,6 +43,14 @@ cd client
 npm install
 ```
 
+### Create .env file to set environment variables
+
+```bash
+cd client
+touch .env
+echo "SKIP_PREFLIGHT_CHECK=true" >> .env
+```
+
 ### Run the web platform locally from root
 
 ```bash
